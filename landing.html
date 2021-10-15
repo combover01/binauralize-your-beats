@@ -35,21 +35,18 @@
                 </ul>
           </nav>
           <div class="container">
-            {% extends "layout.html" %}
-            {% block content %}
-              <h3> choose your fighter</h3>
+              <h1> Binauralize Your Beats </h1>
               <br>
-              <p>My string: {{my_string}}</p>
-              <p>Value from the list: {{my_list[3]}}</p>
-              <p>Loop through the list:</p>
-              <ul>
-                {% for n in my_list %}
-                <li>{{n}}</li>
-                {% endfor %}
-              </ul>
-              <h3> This is the end of my child template</h3>
-            {% endblock %}
-          </ul>
+              <h3>What do you want your music to help with?</h3>
+        </div>
+        <div>
+    <a href='#'>
+      <button class="Sleep">
+        Sleep
+        <br>
+        (0.5 - 4 Hz)
+      </button>
+    </a>
         </div>
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
