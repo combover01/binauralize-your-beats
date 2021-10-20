@@ -8,7 +8,8 @@ import scipy.signal
 
 !spleeter separate -p spleeter:4stems -o output/ homage.wav       #### change 'homage.wav' to filename of choice
 
-[y,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/output/homage/bass.wav').       #### change path
+[stem,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/output/homage/bass.wav')       #### change path
+[original,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/homage.wav')                #### change path
 
 def nextpow2(x):
     return int(np.ceil(np.log2(np.abs(x))))
@@ -26,7 +27,9 @@ t = np.arange(0, T, dt)
 N = len(t)
 
 
-shift = freq_shift(y,10.0,dt) #stress relief beats
+shift = freq_shift(stem,10.0,dt) #stress relief beats
+gain = 1.5
+shift = shift * gain
 
-test = y + shift
+test = original + shift
 write("test.wav",sr,test)
