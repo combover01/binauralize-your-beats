@@ -24,10 +24,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 dev_mode = 'TRUE'
 #print("fn ",Flask(__name__))
 
-@app.route('/audio_upload')
+@app.route('/upload')
 def midi_upload():
     song_id = request.args.get('song_id')
-    return render_template('audio_upload.html',song_id=song_id)
+    return render_template('upload.html',song_id=song_id)
 @app.route('/<path:filename>')
 def serve_static(filename):
     root_dir = app.root_path
