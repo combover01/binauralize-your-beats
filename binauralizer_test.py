@@ -5,6 +5,7 @@ from IPython.display import Audio
 import numpy as np
 import scipy as sp
 import scipy.signal
+from scipy.io.wavfile import write
 
 !spleeter separate -p spleeter:4stems -o output/ homage.wav       #### SOURCE SEPARATION: change 'homage.wav' to filename of choice
 
@@ -28,13 +29,15 @@ N = len(t)
 
 
 def binauralizer(band,gain):           #### creates stereo signal, each channel mixed with original audio for sound quality
-    leftear = stem * gain              #### work in progress
+    leftear = stem * gain
     leftear = original + leftear
     shift = freq_shift(stem,band,dt)
     rightear = shift * gain
     rightear = original + rightear
-    return (leftear,rightear)
+    stereo = np.vstack([leftear,rightear])
+    stereo = np.transpose(stereo)
+    return stereo
 
 #testcase   
-# [leftear,rightear] = binauralizer(10.0,0.8)
-write("test.wav",sr,test)
+stereo=binauralizer(10.0,1)
+write("shift.wav",sr,stereo)
