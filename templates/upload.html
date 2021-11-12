@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Upload</title>
-
   <meta charset="utf-8">
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <style type="text/css">
@@ -11,6 +10,8 @@
       padding-top: 100px;
     }
   </style>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="js/background.js"></script>
 </head>
 
 <body>
@@ -34,15 +35,17 @@
                         </div><!-- /.container-fluid -->
                       </nav>
       <label for="goals">Binaural Beats to help with:</label>
-      <select name="goals" id="goals">
-        <option id="sleep1" value="Sleep">Sleep</option>
-        <option id="med1" value="Meditation">Meditation</option>
-        <option id="stress1" value="Stress">Stress</option>
-        <option id="focus1" value="Focus">Focus</option>
-        <option id="mem1" value="Memory">Memory</option>
+      <select id="goals">
+<option value="">
+  <script type="text/javascript" src="js/theStoredValue.js"></script>
+</option>        
+        <option id="sleep1" value="sleep">Sleep</option>
+        <option id="med1" value="med">Meditation</option>
+        <option id="stress1" value="stress">Stress</option>
+        <option id="focus1" value="focus">Focus</option>
+        <option id="mem1" value="mem">Memory</option>
       </select>
     </div>
-
           <!-- external libs from cdnjs -->
         <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
