@@ -8,64 +8,103 @@
         <style type="text/css">
           .container {
             max-width: 500px;
-            padding-top: 100px;
+            padding-top: 50px;
           }
 		  body {
-			background-image: url("");
+			background-image:url("gradient1.png");
+			background-repeat: repeat-y;
+			background-size: cover;
 				}
+	
 		.Sleep {
 			padding: 15px 32px;
 			font-size: 16px;
 			border-radius: 70%;
+			background-image: url("button1.png");
 			position: absolute;
 				width: 200px;
 				height: 200px;
-				left: 394px;
-				top: 571px;
+				left: 194px;
+				top: 331px;
 			}
+		.Sleep:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+		
 		.Meditation {
 			padding: 15px 32px;
 			font-size: 16px;
+			background-image:url("button2.png");
 			border-radius: 70%; 
 				position: absolute;
 				width: 200px;
 				height: 200px;
-				left: 609px;
-				top: 571px;
+				left: 409px;
+				top: 331px;
+		}
+		.Meditation:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 		}
 		.Stress {
 			padding: 15px 32px;
 			font-size: 16px;
+			background-image:url("button3.png");
 			border-radius: 70%; 
 				position: absolute;
 				width: 200px;
 				height: 200px;
-				left: 824px;
-				top: 571px;
+				left: 624px;
+				top: 331px;
 				}
+		.Stress:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
 		.Focus {
 			padding: 15px 32px;
 			font-size: 16px;
+			background-image:url("button4.png");
 			border-radius: 70%; 
 				position: absolute;
 				width: 200px;
 				height: 200px;
-				left: 1039px;
-				top: 571px;
+				left: 839px;
+				top: 331px;
 			}	
-				
+		.Focus:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
 		.Memory {
 			padding: 15px 32px;
 			font-size: 16px;
+			background-image:url("button5.png");
 			border-radius: 70%; 
 				position: absolute;
 				width: 200px;
 				height: 200px;
-				left: 1254px;
+				left: 1054px;
+				top: 331px;
+				}
+		.Memory:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+		.learn {
+			padding 14px 40px
+			font-size 40px;
+			background-image:url("gradients.png");
+			border-radius: 12px ;
+			position: absolute;
+				width: 400px;
+				height: 75px;
+				left:524px;
 				top: 571px;
 				}
-			
-        </style>
+		.learn:hover{
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+	
+		
+				
+				</style>
     </head>
 
     <body>
@@ -109,42 +148,50 @@
         </div>
         <br>
         <div>
+		
+		
     <a href='upload.html'>
       <button class="Sleep">
-        Sleep
+        <h2>Sleep</h2>
         <br>
         0.5 - 4 Hz
       </button>
     </a>
     <a href='upload.html'>
       <button class="Meditation">
-        Meditation
+        <h2>Meditation</h2>
         <br>
         4 - 8 Hz
        </button>
     </a>
     <a href='upload.html'>
       <button class="Stress">
-        Stress
+        <h2>Stress</h2>
         <br>
         8 - 12 Hz
       </button>
     </a>
     <a href='upload.html'>
       <button class="Focus">
-        Focus
+        <h2>Focus</h2>
         <br>
         12 - 30 Hz
       </button>
     </a>
     <a href='upload.html'>
       <button class="Memory">
-        Memory
+        <h2>Memory</h2>
         <br>
         30+ Hz
       </button>
     </a>
         </div>
+	<br>
+	<a href='edu.html'>
+		<button class="learn">
+			<h2>Click Here to Learn More</h2>
+			</button>
+	</a>
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
