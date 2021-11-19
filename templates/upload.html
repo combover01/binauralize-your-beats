@@ -37,13 +37,31 @@
       <label for="goals">Binaural Beats to help with:</label>
       <select id="goals">
 <option value="">
-  <script type="text/javascript" src="js/theStoredValue.js"></script>
+  <script type="text/javascript" src="js/theStoredValue.js">
+          if (sessionStorage.getItem('goal') === null) { 
+							sessionStorage.setItem('goal', "sleep");
+							document.write("Sleep"); 
+						}
+						else {
+							if (sessionStorage.getItem('goal') === "sleep") { 
+								document.write("Sleep"); 
+							} else if (sessionStorage.getItem('goal') === "med") { 
+								document.write("Meditation"); 
+							} else if (sessionStorage.getItem('goal') === "stress") { 
+								document.write("Stress"); 
+							} else if (sessionStorage.getItem('goal') === "focus") { 
+								document.write("Focus"); 
+							} else if (sessionStorage.getItem('goal') === "mem") { 
+								document.write("Memory"); 
+							}
+						}
+                       </script>
 </option>        
-        <option id="sleep1" value="sleep">Sleep</option>
-        <option id="med1" value="med">Meditation</option>
-        <option id="stress1" value="stress">Stress</option>
-        <option id="focus1" value="focus">Focus</option>
-        <option id="mem1" value="mem">Memory</option>
+        <option value="sleep">Sleep</option>
+        <option value="med">Meditation</option>
+        <option value="stress">Stress</option>
+        <option value="focus">Focus</option>
+        <option value="mem">Memory</option>
       </select>
     </div>
           <!-- external libs from cdnjs -->
