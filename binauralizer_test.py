@@ -9,8 +9,8 @@ from scipy.io.wavfile import write
 
 !spleeter separate -p spleeter:4stems -o output/ homage.wav       #### SOURCE SEPARATION: change 'homage.wav' to filename of choice
 
-[stem,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/output/homage/bass.wav')        #### change path
-[original,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/homage.wav')                #### change path
+[stem,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/output/homage/bass.wav')        #### path for bass stem
+[original,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/homage.wav')                #### path for whole song
 
 def nextpow2(x):
     return int(np.ceil(np.log2(np.abs(x))))            #### for zero padding inside freq_shift function
