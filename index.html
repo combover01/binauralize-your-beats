@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Binauralize Your Beats</title>
+
+        <meta charset="utf-8">
+        <script type="text/javascript" src="brython.js"></script>
+        <script type="text/javascript" src="brython_modules.js"></script>
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <style type="text/css">
+          .container {
+            max-width: 500px;
+            padding-top: 100px;
+          }
+        </style>
+    </head>
+
+    <body onload="brython(1)">
+        <script type="text/python" src="spleeter_test.bry">
+            from browser import document
+
+            document <= "Hello"
+        </script>
+        <div>
+          div hello
+        </div>
+        <audio id='player' controls>
+          <source src={{hooch.wav}}>
+        </audio>
+    </body>
+
+</html>
