@@ -151,17 +151,23 @@
             <br /><br />
             <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea>
             <br />
-          <p>This page allows you to upload audio files</p>
           </p>
-                  <audio id='player' controls>
-                    <source src={{filename}}>
-                  </audio>
+          {% if sample==False %}
+            <audio id='player' controls>
+              <source src={{filename}}>
+            </audio>
+          {% endif %}
         <br>
 		<br>
+    {% if sample==True %}
 			<p>Click here to play a sample</p>
 				<audio id='player' controls>
 					<source src="binauralized.wav" type="audio/wav">
 				</audio>
-        </div>
-      </div>
-        <div id="output" style="margin: 10px;"></div>
+    {% endif %}
+        
+      
+      
+    </div>
+    </div>
+    <div id="output" style="margin: 10px;"></div>

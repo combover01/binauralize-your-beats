@@ -66,10 +66,8 @@ def separate_stems(filePath,fileName):
     # print('subprocess is done now')
 
 @app.route('/audio_upload')
-def midi_upload():
-    song_id = request.args.get('song_id')
-    # song_id = song_id.replace(" ","_")
-    return render_template('upload.html',song_id=song_id)
+def audio_upload():
+    return render_template('upload.html', sample=True)
 @app.route('/<path:filename>')
 def serve_static(filename):
     print('serving static')
@@ -107,8 +105,7 @@ def save_audio():
 
         separate_stems(file_path, file_id)
 
-        return render_template('play_audio.html',filename=file_path)
-
+        return render_template('upload.html',filename=file_path,sample=False)
 
 if __name__ == '__main__':
     #app = Flask(__name__)
