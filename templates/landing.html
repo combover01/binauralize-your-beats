@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Binauralize Your Beats</title>
+
+        <meta charset="utf-8">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <style type="text/css">
+          .container {
+            max-width: 500px;
+            padding-top: 100px;
+          }
+        </style>
+    </head>
+
+    <body>
+                  <nav class="navbar navbar-inverse" role="navigation">
+                    <div class="container-fluid">
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="landing.html">Binauralize Your Beats</a>
+                      </div>
+                  
+                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                          <li><a href="edu.html">Learn More</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">Upload <b class="caret"></b></a>
+                            <ul id="dropdown" class="dropdown-menu">
+                              <li><a value="sleep" id="sleep1" onClick="sessionStorage.setItem('goal','sleep')" href="Upload.html">Sleep</a></li>
+                              <li><a value="med" id="med1" onClick="sessionStorage.setItem('goal','med')" href="Upload.html">Meditation</a></li>
+                              <li><a value="stress" id="stress1" onClick="sessionStorage.setitem('goal','stress')" href="Upload.html">Stress</a></li>
+                              <li><a value="focus" id="focus1" onClick="sessionStorage.setItem('goal','focus')" href="Upload.html">Focus</a></li>
+                              <li><a value="mem" id="mem1" onClick="sessionStorage.setItem('goal','mem')" href="Upload.html">Memory</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                  </nav>
+          <div class="container">
+            <p style="text-align:center">
+              <h1> Binauralize Your Beats </h1>
+              <br>
+              <h3>What do you want your music to help with?</h3>
+            </p>
+        </div>
+        <br>
+        <div>
+    <a href='upload.html'>
+      <button value="sleep" id="sleep2" onClick="sessionStorage.setItem('goal','sleep')" class="Sleep">
+        Sleep
+        <br>
+        0.5 - 4 Hz
+      </button>
+    </a>
+    <a href='upload.html'>
+      <button value="med" id="med2" onClick="sessionStorage.setItem('goal','med')" class="Meditation">
+        Meditation
+        <br>
+        4 - 8 Hz
+       </button>
+    </a>
+    <a href='upload.html'>
+      <button value="stress" id="stress2" onClick="sessionStorage.setItem('goal','stress')" class="Stress">
+        Stress
+        <br>
+        8 - 12 Hz
+      </button>
+    </a>
+    <a href='upload.html'>
+      <button value="focus" id="focus2" onClick="sessionStorage.setItem('goal','focus')" class="Focus">
+        Focus
+        <br>
+        12 - 30 Hz
+      </button>
+    </a>
+    <a href='upload.html'>
+      <button value="mem" id="mem2" onClick="sessionStorage.setItem('goal','mem')" class="Memory">
+        Memory
+        <br>
+        30+ Hz
+      </button>
+    </a>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    
+    </body>
+
+</html>
