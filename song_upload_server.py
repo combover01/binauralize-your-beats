@@ -38,9 +38,11 @@ def separate_stems(filePath,fileName):
 
     outputPath = "static/stems/" + fileName
 
+    print(filePath)
+
     # WE USE SUBPROCESS NOW::
 
-    demucsCommand = "demucs "
+    demucsCommand = "demucs -d cpu -n mdx_q "
 
     subprocess.run(demucsCommand+filePath)
 
@@ -99,53 +101,54 @@ def save_audio():
         # output_path = STEMS_FOLDER + "/" + file_id
         file_path = "static/audio_uploads/"+file_id
 
-        # print("file path", file_path)
+        print("file path: ", file_path)
         # print("output path", output_path)
         audio_file.save(file_path)   
 
+        separate_stems(file_path, file_id)
 
         # separate the audio into 1 minute chunks to send to spleeter to avoid memory errors.
         # FOR MP3:
 
-        if (file_id[-3:] == "mp3"):
-            originalFile = AudioSegment.from_mp3(file_path)
-            length = len(originalFile)
-            print(length)
+        # if (file_id[-3:] == "mp3"):
+        #     originalFile = AudioSegment.from_mp3(file_path)
+        #     length = len(originalFile)
+        #     print(length)
             
             # get number of minutes rounded up to loop the audio file splitter and then spleeter
-            numMinLoops = math.ceil(length/60000)
-            print(numMinLoops)
-            for n in range(numMinLoops):
-                # t1 = n*60000
-                t1 = n*60000
-                t2 = t1+60000
-                print("hello "+ str(n))
-                newAudio = originalFile[t1:t2]
-                newAudio.export("static/segments/section" + str(n) + ".wav", format="wav")
-                cur_file_path = "static/segments/section" + str(n) + ".wav"
-                separate_stems(cur_file_path,"section" + str(n)+".wav")
+        #     numMinLoops = math.ceil(length/60000)
+        #     print(numMinLoops)
+        #     for n in range(numMinLoops):
+        #         # t1 = n*60000
+        #         t1 = n*60000
+        #         t2 = t1+60000
+        #         print("hello "+ str(n))
+        #         newAudio = originalFile[t1:t2]
+        #         newAudio.export("static/segments/section" + str(n) + ".wav", format="wav")
+        #         cur_file_path = "static/segments/section" + str(n) + ".wav"
+        #         separate_stems(cur_file_path,"section" + str(n)+".wav")
 
 
 
 
 
 
-        if (file_id[-3:] == "wav"):
-            originalFile = AudioSegment.from_wav(file_path)
-            length = len(originalFile)
-            print(length)
+        # if (file_id[-3:] == "wav"):
+        #     originalFile = AudioSegment.from_wav(file_path)
+        #     length = len(originalFile)
+        #     print(length)
             
-            # get number of minutes rounded up to loop the audio file splitter and then spleeter
-            numMinLoops = math.ceil(length/60000)
-            print(numMinLoops)
-            for n in range(numMinLoops):
-                t1 = n*60000
-                t2 = t1+60000
-                print("hello "+ str(n))
-                newAudio = originalFile[t1:t2]
-                newAudio.export("static/segments/section" + str(n) + ".wav", format="wav")
-                cur_file_path = "static/segments/section" + str(n) + ".wav"
-                separate_stems(cur_file_path,"section" + str(n)+".wav")
+        #     # get number of minutes rounded up to loop the audio file splitter and then spleeter
+        #     numMinLoops = math.ceil(length/60000)
+        #     print(numMinLoops)
+        #     for n in range(numMinLoops):
+        #         t1 = n*60000
+        #         t2 = t1+60000
+        #         print("hello "+ str(n))
+        #         newAudio = originalFile[t1:t2]
+        #         newAudio.export("static/segments/section" + str(n) + ".wav", format="wav")
+        #         cur_file_path = "static/segments/section" + str(n) + ".wav"
+        #         separate_stems(cur_file_path,"section" + str(n)+".wav")
         
         # separate_stems(file_path,file_id)
 
