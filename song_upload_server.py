@@ -28,6 +28,9 @@ app.config['STEMS_FOLDER'] = STEMS_FOLDER
 dev_mode = 'TRUE'
 #print("fn ",Flask(__name__))
 
+@app.route("/")
+def landing():
+    return render_template("landing.html")
 
 def separate_stems(filePath,fileName):
     print("\nseparating stems")
@@ -46,6 +49,7 @@ def separate_stems(filePath,fileName):
 
     subprocess.run(demucsCommand+filePath)
 
+    # return render_template('play_audio.html',filename=filePath)
 
 
 
@@ -65,7 +69,7 @@ def separate_stems(filePath,fileName):
 def midi_upload():
     song_id = request.args.get('song_id')
     # song_id = song_id.replace(" ","_")
-    return render_template('audio_upload.html',song_id=song_id)
+    return render_template('upload.html',song_id=song_id)
 @app.route('/<path:filename>')
 def serve_static(filename):
     print('serving static')
@@ -83,11 +87,7 @@ def play_audio():
 @app.route('/save_audio',methods=['GET','POST'])
 def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
-    # save_fn = 'test.mid'
-    # dict = request.files
-    
-    # print('\nrequestfiles: ', dict['audio'])
-    # print('\nrequestfilesget: ', dict['audio'])
+
     file_name = request.form.get('fname')
     
     if file_name is None:
@@ -107,53 +107,7 @@ def save_audio():
 
         separate_stems(file_path, file_id)
 
-        # separate the audio into 1 minute chunks to send to spleeter to avoid memory errors.
-        # FOR MP3:
-
-        # if (file_id[-3:] == "mp3"):
-        #     originalFile = AudioSegment.from_mp3(file_path)
-        #     length = len(originalFile)
-        #     print(length)
-            
-            # get number of minutes rounded up to loop the audio file splitter and then spleeter
-        #     numMinLoops = math.ceil(length/60000)
-        #     print(numMinLoops)
-        #     for n in range(numMinLoops):
-        #         # t1 = n*60000
-        #         t1 = n*60000
-        #         t2 = t1+60000
-        #         print("hello "+ str(n))
-        #         newAudio = originalFile[t1:t2]
-        #         newAudio.export("static/segments/section" + str(n) + ".wav", format="wav")
-        #         cur_file_path = "static/segments/section" + str(n) + ".wav"
-        #         separate_stems(cur_file_path,"section" + str(n)+".wav")
-
-
-
-
-
-
-        # if (file_id[-3:] == "wav"):
-        #     originalFile = AudioSegment.from_wav(file_path)
-        #     length = len(originalFile)
-        #     print(length)
-            
-        #     # get number of minutes rounded up to loop the audio file splitter and then spleeter
-        #     numMinLoops = math.ceil(length/60000)
-        #     print(numMinLoops)
-        #     for n in range(numMinLoops):
-        #         t1 = n*60000
-        #         t2 = t1+60000
-        #         print("hello "+ str(n))
-        #         newAudio = originalFile[t1:t2]
-        #         newAudio.export("static/segments/section" + str(n) + ".wav", format="wav")
-        #         cur_file_path = "static/segments/section" + str(n) + ".wav"
-        #         separate_stems(cur_file_path,"section" + str(n)+".wav")
-        
-        # separate_stems(file_path,file_id)
-
-
-    return render_template('play_audio.html',filename='/static/audio_uploads/hooch.wav')
+        return render_template('play_audio.html',filename=file_path)
 
 
 if __name__ == '__main__':
