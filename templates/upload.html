@@ -14,6 +14,43 @@
 			background-repeat: repeat-y;
 			background-size: cover;
 				}
+ .loader {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+ .loader div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+ .loader div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+.loader div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+.loader div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+@keyframes loader {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
   </style>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="js/background.js"></script>
@@ -31,7 +68,11 @@
                             </button>
                             <a class="navbar-brand" href="landing.html">Binauralize Your Beats</a>
                           </div>
-                      
+                        <div class="loader">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                               <li><a href="edu.html">Learn More</a></li>
@@ -141,6 +182,14 @@
             document.getElementById("output").innerHTML = this.responseText;
           }
         </script>
+        <script>
+          function showLoading() {
+            document.getElementById("loader").style = "visibility: visible";
+          }
+          function hideLoading() {
+            document.getElementById("loader").style = "visibility: hidden";
+          }
+        </script>
         <div class="container">
           <div class="col-lg-9"></div>
           <h4>Audio Upload</h4>
@@ -151,7 +200,6 @@
             <br /><br />
             <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea>
             <br />
-          <p>This page allows you to upload audio files</p>
           </p>
                   <audio id='player' controls>
                     <source src={{filename}}>
