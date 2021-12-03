@@ -10,12 +10,48 @@
       max-width: 500px;
       padding-top: 100px;
     }
+	body {
+			background-image:url("gradient1.png");
+			background-repeat: repeat-y;
+			background-size: cover;
+				}
+ .loader {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+ .loader div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+ .loader div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+.loader div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+.loader div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+@keyframes loader {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
 
-    body {
-      background-image: url("gradient1.png");
-      background-repeat: repeat-y;
-      background-size: cover;
-    }
   </style>
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="js/background.js"></script>
@@ -23,163 +59,159 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="landing.html">Binauralize Your Beats</a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a href="edu.html">Learn More</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-  <label for="goals">Binaural Beats to help with:</label>
-  <select id="goals">
-    <option value="">
-      <script type="text/javascript" src="js/theStoredValue.js">
-        if (sessionStorage.getItem('goal') === null) {
-          sessionStorage.setItem('goal', "sleep");
-          document.write("Sleep");
-        }
-        else {
-          if (sessionStorage.getItem('goal') === "sleep") {
-            document.write("Sleep");
-          } else if (sessionStorage.getItem('goal') === "med") {
-            document.write("Meditation");
-          } else if (sessionStorage.getItem('goal') === "stress") {
-            document.write("Stress");
-          } else if (sessionStorage.getItem('goal') === "focus") {
-            document.write("Focus");
-          } else if (sessionStorage.getItem('goal') === "mem") {
-            document.write("Memory");
-          }
-        }
-      </script>
-    </option>
-    <option value="sleep">Sleep</option>
-    <option value="med">Meditation</option>
-    <option value="stress">Stress</option>
-    <option value="focus">Focus</option>
-    <option value="mem">Memory</option>
-  </select>
-  </div>
-  <!-- external libs from cdnjs -->
-  <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-  <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-
-
-
-
-  <script type=text/javascript>
+                      <nav class="navbar navbar-inverse" role="navigation">
+                        <div class="container-fluid">
+                          <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="landing.html">Binauralize Your Beats</a>
+                          </div>
+                        <div class="loader">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                              <li><a href="edu.html">Learn More</a></li>
+                            </ul>
+                          </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                      </nav>
+      <label for="goals">Binaural Beats to help with:</label>
+      <select id="goals">
+<option value="">
+  <script type="text/javascript" src="js/theStoredValue.js">
+          if (sessionStorage.getItem('goal') === null) { 
+							sessionStorage.setItem('goal', "sleep");
+							document.write("Sleep"); 
+						}
+						else {
+							if (sessionStorage.getItem('goal') === "sleep") { 
+								document.write("Sleep"); 
+							} else if (sessionStorage.getItem('goal') === "med") { 
+								document.write("Meditation"); 
+							} else if (sessionStorage.getItem('goal') === "stress") { 
+								document.write("Stress"); 
+							} else if (sessionStorage.getItem('goal') === "focus") { 
+								document.write("Focus"); 
+							} else if (sessionStorage.getItem('goal') === "mem") { 
+								document.write("Memory"); 
+							}
+						}
+                       </script>
+</option>        
+        <option value="sleep">Sleep</option>
+        <option value="med">Meditation</option>
+        <option value="stress">Stress</option>
+        <option value="focus">Focus</option>
+        <option value="mem">Memory</option>
+      </select>
+    </div>
+          <!-- external libs from cdnjs -->
+        <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+        
+        
+        
+        
+        <script type=text/javascript>
                     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
                 </script>
-  <script type="text/javascript">
-    $(function () {
+        <script type="text/javascript">
+          $(function () {
 
 
-      var parseAndSave = function (f) {
-        $("#output").html("<p align='center' style='color:grey;'>(processing...)</p>")
-        console.log("got file ", f)
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', handle_response)
-        xhr.open('POST', '/save_audio', true);
-        req = new FormData()
-        req.set('audio', f,)
-        for (key of req.keys()) {
-          console.log("val", key)
-        }
-        xhr.send(req);
-      };
+            var parseAndSave = function (f) {
+              $("#output").html("<p align='center' style='color:grey;'>(processing...)</p>")
+              console.log("got file ", f)
+              var xhr = new XMLHttpRequest();
+              xhr.addEventListener('load', handle_response)
+              xhr.open('POST', '/save_audio', true);
+              req = new FormData()
+              req.set('audio', f,)
+              for (key of req.keys()) {
+                console.log("val", key)
+              }
+              xhr.send(req);
+            };
 
-      $("#mid").bind("change", function (event) {
-        parseAndSave(event.target.files[0]);
-      });
+            $("#mid").bind("change", function (event) {
+              parseAndSave(event.target.files[0]);
+            });
 
-      $("#textarea").bind("input change", function () {
-        parseAndSave($("#textarea").val());
-      });
+            $("#textarea").bind("input change", function () {
+              parseAndSave($("#textarea").val());
+            });
 
-      var dragging = function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.originalEvent.dataTransfer.dropEffect = 'copy';
-        $("body").removeClass("whiteborder").addClass("greyborder");
-      };
+            var dragging = function (evt) {
+              evt.stopPropagation();
+              evt.preventDefault();
+              evt.originalEvent.dataTransfer.dropEffect = 'copy';
+              $("body").removeClass("whiteborder").addClass("greyborder");
+            };
 
-      var endDrag = function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.originalEvent.dataTransfer.dropEffect = 'copy';
-        $("body").removeClass("greyborder").addClass("whiteborder");
-      };
+            var endDrag = function (evt) {
+              evt.stopPropagation();
+              evt.preventDefault();
+              evt.originalEvent.dataTransfer.dropEffect = 'copy';
+              $("body").removeClass("greyborder").addClass("whiteborder");
+            };
 
-      var dropped = function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        $("body").removeClass("greyborder").addClass("whiteborder");
-        parseAndSave(evt.originalEvent.dataTransfer.files[0]);
-      };
+            var dropped = function (evt) {
+              evt.stopPropagation();
+              evt.preventDefault();
+              $("body").removeClass("greyborder").addClass("whiteborder");
+              parseAndSave(evt.originalEvent.dataTransfer.files[0]);
+            };
 
-      $("html")
-        .on("dragover", dragging)
-        .on("dragend", endDrag)
-        .on("dragexit", endDrag)
-        .on("dragleave", endDrag)
-        .on("drop", dropped);
-    });
-    function handle_response(e) {
-      console.log(this.responseText);
-      document.getElementById("output").innerHTML = this.responseText;
-    }
-  </script>  
-  
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
- 
-  <script> 
-      let name = '{{ filepath }}'; 
-      $.ajax({ 
-          url: "/api/" + name + "/" 
-      }).done(function(res) { 
-          alert(res.filepath); 
-      }); 
-  </script>  -->
-
-  <div class="container">
-    <div class="col-lg-9"></div>
-    <h4>Audio Upload</h4>
-
-    <p style="text-align:center" style="line-height: 1.5">
-      Drop an audio file on this page or
-      <label id="filechooser">click here to choose one<input id="mid" type="file" style="display:none" /></label>
-      <br /><br />
-      <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea>
-      <br />
-    </p>
-
-   
-    <br>
-    <br>
-    <!-- {% if sample==True %}
-    <p>Click here to play a sample</p>
-    <audio id='player' controls>
-      <source src="binauralized.wav" type="audio/wav">
-    </audio>
-    {% endif %} -->
-
-
-
-  </div>
-  </div>
-  <div id="output" style="margin: 10px;"></div>
+            $("html")
+              .on("dragover", dragging)
+              .on("dragend", endDrag)
+              .on("dragexit", endDrag)
+              .on("dragleave", endDrag)
+              .on("drop", dropped);
+          });
+          function handle_response(e) {
+            console.log(this.responseText);
+            document.getElementById("output").innerHTML = this.responseText;
+          }
+        </script>
+        <script>
+          function showLoading() {
+            document.getElementById("loader").style = "visibility: visible";
+          }
+          function hideLoading() {
+            document.getElementById("loader").style = "visibility: hidden";
+          }
+        </script>
+        <div class="container">
+          <div class="col-lg-9"></div>
+          <h4>Audio Upload</h4>
+        
+          <p style="text-align:center" style="line-height: 1.5">
+            Drop an audio file on this page or
+            <label id="filechooser">click here to choose one<input id="mid" type="file" style="display:none" /></label>
+            <br /><br />
+            <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea>
+            <br />
+          </p>
+                  <audio id='player' controls>
+                    <source src={{filename}}>
+                  </audio>
+        <br>
+		<br>
+			<p>Click here to play a sample</p>
+				<audio id='player' controls>
+					<source src="binauralized.wav" type="audio/wav">
+				</audio>
+        </div>
+      </div>
+        <div id="output" style="margin: 10px;"></div>

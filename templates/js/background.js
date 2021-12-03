@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('goals').change(function () {
-        localStorage.setItem('goal', $(this).val());
-        $('goals').value(localStorage.getItem('goal'));
+        sessionStorage.setItem('goal', $(this).val());
+        $('goals').value(sessionStorage.getItem('goal'));
     });
 });
