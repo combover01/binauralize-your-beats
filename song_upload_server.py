@@ -31,6 +31,11 @@ dev_mode = 'TRUE'
 @app.route("/")
 def landing():
     return render_template("landing.html")
+# @app.route('/api/<filepath>/')
+# def api_get_filepath(filepath):
+#     return json.jsonify({
+#         'filepath': filepath
+#     })
 
 def separate_stems(filePath,fileName):
     print("\nseparating stems")
@@ -64,10 +69,24 @@ def separate_stems(filePath,fileName):
     #     print('sep is running')
 
     # print('subprocess is done now')
+# @app.route("/change_audio")
+# def change_audio(filePath, sample):
+#     return filePath, sample
+
+@app.route('/audio_file_name')
+def returnAudioFile(filePath):
+    path_to_audio_file = filePath
+    return send_file(
+         path_to_audio_file, 
+         mimetype="audio/wav", 
+         as_attachment=True, 
+         attachment_filename="test.wav")
 
 @app.route('/audio_upload')
 def audio_upload():
-    return render_template('upload.html', sample=True)
+    return render_template('upload.html')
+
+
 @app.route('/<path:filename>')
 def serve_static(filename):
     print('serving static')
@@ -78,13 +97,15 @@ def serve_static(filename):
     return send_from_directory(os.path.join(root_dir, 'static/'), filename)
 
 
-@app.route('/play_audio')
-def play_audio():
-    return render_template('play_audio.html')
+# @app.route('/play_audio')
+# def play_audio():
+#     return render_template('play_audio.html')
 
 @app.route('/save_audio',methods=['GET','POST'])
 def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
+
+
 
     file_name = request.form.get('fname')
     
@@ -105,7 +126,10 @@ def save_audio():
 
         separate_stems(file_path, file_id)
 
-        return render_template('upload.html',filename=file_path,sample=False)
+        # change_audio(filePath=file_path, sample=False)
+        # return render_template('upload.html',filename=file_path,sample=False)
+    # data = {'file_path': file_path, 'sample': False}
+    return render_template('play_audio.html', file_path=file_path)
 
 if __name__ == '__main__':
     #app = Flask(__name__)
