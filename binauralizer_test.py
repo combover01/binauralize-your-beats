@@ -45,7 +45,7 @@ medium = 0.9
 high = 1.2
 
 
-def binauralizer(band,gain):           #### creates stereo signal, each channel mixed with original audio for sound quality
+def binauralizer(band,gain=1):           #### creates stereo signal, each channel mixed with original audio for sound quality
     leftear = stem * gain
     leftear = original + leftear
     shift = freq_shift(stem,band,dt)
