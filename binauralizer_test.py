@@ -7,11 +7,15 @@ import scipy as sp
 import scipy.signal
 from scipy.io.wavfile import write
 
-!spleeter separate -p spleeter:4stems -o output/ homage.wav       #### SOURCE SEPARATION: change 'homage.wav' to filename of choice
-
+#reading in stems from demucs seperation
 [stem,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/output/homage/bass.wav')        #### path for bass stem
 [original,sr] = librosa.load('/Users/tuckeralexander/Desktop/spleeter/homage.wav')                #### path for whole song
 
+#lowpass filter to remove extraneous signal noise
+lowpass = scipy.signal.butter(2, 5000, 'lowpass', fs=sr, output='sos')
+filtered = scipy.signal.sosfilt(lowpass, stem)
+
+#freq shift
 def nextpow2(x):
     return int(np.ceil(np.log2(np.abs(x))))            #### for zero padding inside freq_shift function
 
@@ -28,6 +32,19 @@ t = np.arange(0, T, dt)
 N = len(t)
 
 
+# individual frequency bands
+delta = 2
+theta = 6
+alpha = 10
+beta = 20
+gamma = 30
+
+# volume levels
+low = 0.6
+medium = 0.9
+high = 1.2
+
+
 def binauralizer(band,gain):           #### creates stereo signal, each channel mixed with original audio for sound quality
     leftear = stem * gain
     leftear = original + leftear
@@ -39,5 +56,5 @@ def binauralizer(band,gain):           #### creates stereo signal, each channel 
     return stereo
 
 #testcase   
-stereo=binauralizer(10.0,1)
-write("shift.wav",sr,stereo)
+stereo=binauralizer(alpha,high)
+write("stereo.wav",sr,stereo)
