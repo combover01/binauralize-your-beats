@@ -12,9 +12,18 @@ import gc
 import math
 import requests
 import sys,traceback
-# import spleeter
+from pathlib import Path
 import pydub
 from pydub import AudioSegment
+from IPython.display import Audio
+import numpy as np
+import scipy as sp
+import scipy.signal
+from scipy.io.wavfile import write
+import os.path
+import time
+
+
 # from spleeter.separator import Separator
 
 
@@ -108,28 +117,102 @@ def save_audio():
 
 
     file_name = request.form.get('fname')
-    
+
     if file_name is None:
         # this saves audio files into the "audio_uploads" folder. we will need to delete these in a cache on the webhosting possibly but for now it works fine
         audio_file = request.files['audio']
         print('audiofile: ', audio_file.filename)
-        print('newaudiofile: ', audio_file.filename.replace(" ","_"))
+        print('newaudiofile: ', audio_file.filename.replace(" ","_").replace(".","_",audio_file.filename.count(".")-1))
 
-        file_id=audio_file.filename.replace(" ","_")
+        file_id=audio_file.filename.replace(" ","_").replace(".","_",audio_file.filename.count(".")-1)
+
         # file_path = UPLOAD_FOLDER + "/" + file_id
         # output_path = STEMS_FOLDER + "/" + file_id
-        file_path = "static/audio_uploads/"+file_id
+        orig_file_path = "static/audio_uploads/"+file_id
 
-        print("file path: ", file_path)
+        print("file path: ", orig_file_path)
         # print("output path", output_path)
-        audio_file.save(file_path)   
+        audio_file.save(orig_file_path)   
 
-        separate_stems(file_path, file_id)
+        separate_stems(orig_file_path, file_id)
+        name_of_file=file_id.split(".")[0]
+        bass_path = 'separated/mdx_q/'+ name_of_file + '/bass.wav'
 
-        # change_audio(filePath=file_path, sample=False)
-        # return render_template('upload.html',filename=file_path,sample=False)
-    # data = {'file_path': file_path, 'sample': False}
-    return render_template('play_audio.html', file_path=file_path)
+        stereo,sr=binauralizer(alpha,high,bass_path,orig_file_path)
+        binauralized_file_path = 'static/binauralized/' + file_id
+        write(binauralized_file_path,sr,stereo)
+        print(binauralized_file_path)
+        time.sleep(10)
+        return render_template('play_audio.html', file_path=orig_file_path)         
+        
+
+    
+    # return render_template('play_audio.html', file_path=binauralized_file_path)
+
+
+
+
+
+#reading in stems from demucs separation
+
+def binauralizer_definitions(path_to_bass,path_to_orig):
+    [stem,sr1] = librosa.load(path_to_bass)        #### path for bass stem
+    [original,sr2] = librosa.load(path_to_orig)                #### path for whole song
+
+    #lowpass filter to remove extraneous signal noise
+    lowpass = scipy.signal.butter(2, 5000, 'lowpass', fs=sr1, output='sos')
+    filtered = scipy.signal.sosfilt(lowpass, stem)
+    return filtered, original,sr1
+
+#freq shift
+def nextpow2(x):
+    return int(np.ceil(np.log2(np.abs(x))))            #### for zero padding inside freq_shift function
+
+def freq_shift(x, f_shift, dt):                        #### frequency shifting function
+    N_orig = len(x)
+    N_padded = 2**nextpow2(N_orig)                     #### zero padding
+    t = np.arange(0, N_padded)
+    return (scipy.signal.hilbert(np.hstack((x, np.zeros(N_padded-N_orig, x.dtype))))*np.exp(2j*np.pi*f_shift*dt*t))[:N_orig].real
+
+dt = 1/44100
+fs = 1/dt
+T = 1.0
+t = np.arange(0, T, dt)
+N = len(t)
+
+
+# individual frequency bands
+delta = 2
+theta = 6
+alpha = 10
+beta = 20
+gamma = 30
+
+# volume levels
+low = 0.6
+medium = 0.9
+high = 1.2
+
+
+def binauralizer(band,gain=1, path_to_bass=1, path_to_orig=1):           #### creates stereo signal, each channel mixed with original audio for sound quality
+    stem,original,sr = binauralizer_definitions(path_to_bass,path_to_orig)
+    leftear = stem * gain
+    leftear = original + leftear
+    shift = freq_shift(stem,band,dt)
+    rightear = shift * gain
+    rightear = original + rightear
+    stereo = np.vstack([leftear,rightear])
+    stereo = np.transpose(stereo)
+    return stereo,sr
+
+#testcase   
+# stereo,sr=binauralizer(alpha,high,path_to_bass,path_to_orig)
+# write("stereo.wav",sr,stereo)
+
+
+
+
+
 
 if __name__ == '__main__':
     #app = Flask(__name__)
