@@ -77,7 +77,7 @@
                         </div>
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                              <li><a href="edu.html">Learn More</a></li>
+                              <li><a href="/edu">Learn More</a></li>
                             </ul>
                           </div><!-- /.navbar-collapse -->
                         </div><!-- /.container-fluid -->
@@ -113,6 +113,7 @@
 
             var parseAndSave = function (f) {
               $("#output").html("<p align='center' style='color:grey;'>(processing...)</p>")
+              loader.showLoading();
               console.log("got file ", f)
               var xhr = new XMLHttpRequest();
               xhr.addEventListener('load', handle_response)
@@ -164,6 +165,7 @@
           function handle_response(e) {
             console.log(this.responseText);
             document.getElementById("output").innerHTML = this.responseText;
+            loader.hideLoading();
           }
         </script>
         <script>

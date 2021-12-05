@@ -95,11 +95,6 @@ def returnAudioFile(filePath):
 def audio_upload():
     return render_template('upload.html')
 
-@app.route("/")
-def landing():
-    return render_template("landing.html")
-
-
 @app.route("/edu")
 def edu():
     return render_template("edu.html")
