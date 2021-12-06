@@ -22,6 +22,7 @@ import scipy.signal
 from scipy.io.wavfile import write
 import os.path
 import time
+import requests
 
 
 # from spleeter.separator import Separator
@@ -91,7 +92,7 @@ def returnAudioFile(filePath):
          as_attachment=True, 
          attachment_filename="test.wav")
 
-@app.route('/audio_upload')
+@app.route('/audio_upload', methods=['GET', 'POST'])
 def audio_upload():
     return render_template('upload.html')
 
