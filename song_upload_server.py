@@ -18,6 +18,7 @@ from pydub import AudioSegment
 from IPython.display import Audio
 import numpy as np
 import scipy as sp
+import soundfile as sf
 import scipy.signal
 from scipy.io.wavfile import write
 import os.path
@@ -27,7 +28,7 @@ import time
 # from spleeter.separator import Separator
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'pretty secret key'
 UPLOAD_FOLDER = './static/audio_uploads'
@@ -82,9 +83,10 @@ def separate_stems(filePath,fileName):
 # def change_audio(filePath, sample):
 #     return filePath, sample
 
+# @app.route('/<path:filename>')
 @app.route('/audio_file_name')
-def returnAudioFile(filePath):
-    path_to_audio_file = filePath
+def returnAudioFile(filename):
+    path_to_audio_file = filename
     return send_file(
          path_to_audio_file, 
          mimetype="audio/wav", 
@@ -105,15 +107,25 @@ def edu():
     return render_template("edu.html")
 
 
-
+# when tf is this called?
+# maybe when it is audio, do returnAudioFile
 @app.route('/<path:filename>')
 def serve_static(filename):
+    print("static serving filename:", filename)
+
     print('serving static')
     root_dir = app.root_path
     print("root ",root_dir,app.root_path,app.instance_path)
     filedir = os.path.join(root_dir, 'static/')
-    print(filedir,filename)
-    return send_from_directory(os.path.join(root_dir, 'static/'), filename)
+    print("filedir: ",filedir, " filename: ", filename)
+    # convert the thing from dict if it is an audio file lol
+    # return send_from_directory(os.path.join(root_dir, 'static/'), filename)
+    # if "wav" in filename:
+    #     print('hehe this is a wav file')
+    #     return send_from_directory(app.static_folder,"static/bin_skiles_film_room.wav")
+
+    print(app.static_folder)
+    return send_from_directory(app.static_folder, filename)
 
 
 # @app.route('/play_audio')
@@ -129,6 +141,8 @@ def save_audio():
     if file_name is None:
         # this saves audio files into the "audio_uploads" folder. we will need to delete these in a cache on the webhosting possibly but for now it works fine
         audio_file = request.files['audio']
+        # output_audio_file = request.files['outputaudio']
+        # print('outputaudio: ',output_audio_file)
         print('audiofile: ', audio_file.filename)
         print('newaudiofile: ', audio_file.filename.replace(" ","_").replace(".","_",audio_file.filename.count(".")-1))
 
@@ -136,22 +150,39 @@ def save_audio():
 
         # file_path = UPLOAD_FOLDER + "/" + file_id
         # output_path = STEMS_FOLDER + "/" + file_id
-        orig_file_path = "static/audio_uploads/"+file_id
+        # orig_file_path = "static/audio_uploads/"+file_id
+        orig_file_path = "static/"+file_id
 
         print("file path: ", orig_file_path)
         # print("output path", output_path)
         audio_file.save(orig_file_path)   
 
+        # convert file to wav for future use
+        if ".mp3" in orig_file_path:
+            print('yes there is mp3 here')
+            sound = AudioSegment.from_mp3(orig_file_path)
+            sound.export(orig_file_path.replace(".mp3",".wav"), format="wav")
+            file_id = file_id.replace(".mp3",".wav")
+            orig_file_path = orig_file_path.replace(".mp3",".wav")
+
+
         separate_stems(orig_file_path, file_id)
         name_of_file=file_id.split(".")[0]
         bass_path = 'separated/mdx_q/'+ name_of_file + '/bass.wav'
 
+        binauralized_file_id = "bin_"+file_id
+        print("binauralized file id: ", binauralized_file_id)
         stereo,sr=binauralizer(alpha,high,bass_path,orig_file_path)
-        binauralized_file_path = 'static/binauralized/' + file_id
-        write(binauralized_file_path,sr,stereo)
-        print(binauralized_file_path)
+        binauralized_file_path = 'static/' + binauralized_file_id
+
+        sf.write(binauralized_file_path,stereo,sr)
+
+
+
+
         time.sleep(10)
-        return render_template('play_audio.html', file_path=orig_file_path)         
+        # renders template with file id and not file path because they are all in static and otherwise it gets messy
+        return render_template('play_audio.html', file_path=binauralized_file_id)         
         
 
     

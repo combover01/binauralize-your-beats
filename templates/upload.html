@@ -80,7 +80,7 @@
       <label for="goals">Binaural Beats to help with:</label>
       <select id="goals">
 <option value="">
-  <script type="text/javascript" src="js/theStoredValue.js"></script>
+  <script type="text/javascript" src="templates/js/theStoredValue.js"></script>
 </option>        
         <option value="sleep">Sleep</option>
         <option value="med">Meditation</option>
@@ -116,6 +116,8 @@
               xhr.open('POST', '/save_audio', true);
               req = new FormData()
               req.set('audio', f,)
+              req.set('outputaudio',f,)
+              console.log(req)
               for (key of req.keys()) {
                 console.log("val", key)
               }
@@ -162,6 +164,7 @@
               .on("drop", dropped);
           });
           function handle_response(e) {
+
             console.log(this.responseText);
             document.getElementById("output").innerHTML = this.responseText;
             loader.hideLoading();
@@ -190,9 +193,7 @@
             <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea>
             <br />
           </p>
-                  <audio id='player' controls>
-                    <source src={{filename}}>
-                  </audio>
+      
         <br>
 		<br>
 			<!-- <p>Click here to play a sample</p>
@@ -202,7 +203,12 @@
         </div>
       </div>
         <div id="output" style="margin: 10px;">
+          Example of binauralized music:
           <audio id='player' controls>
-            <source src={{filename}}>
+            <source src="static/bin_sneakyedit.wav">
+          </audio>
+          The original (un-binauralized) music:
+          <audio id='player' controls>
+            <source src="static/sneakyedit.wav">
           </audio>
         </div>
