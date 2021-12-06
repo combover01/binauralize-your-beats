@@ -94,7 +94,10 @@ def returnAudioFile(filePath):
 
 @app.route('/audio_upload', methods=['GET', 'POST'])
 def audio_upload():
+    if request.method == 'POST':
+      band = request.form.get('goals')
     return render_template('upload.html')
+
 
 @app.route("/")
 def landing_load():

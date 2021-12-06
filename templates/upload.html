@@ -82,9 +82,10 @@
                         </div><!-- /.container-fluid -->
                       </nav>
       <label for="goals">Binaural Beats to help with:</label>
-      <select method="POST" id="goals">
+      <form class="dropdown" method="POST">
+      <select id="goals">
 <option value="">
-  <!-- <script type="text/javascript" src="js/theStoredValue.js"></script> -->
+  <script type="text/javascript" src="js/theStoredValue.js"></script>
 </option>        
         <option value="delta">Sleep</option>
         <option value="theta">Meditation</option>
@@ -92,6 +93,7 @@
         <option value="beta">Focus</option>
         <option value="gamma">Memory</option>
       </select>
+      </form>
     </div>
           <!-- external libs from cdnjs -->
         <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
