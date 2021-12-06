@@ -96,7 +96,7 @@ def audio_upload():
     return render_template('upload.html')
 
 @app.route("/")
-def landing():
+def landing_load():
     return render_template("landing.html")
 
 
@@ -123,8 +123,6 @@ def serve_static(filename):
 @app.route('/save_audio',methods=['GET','POST'])
 def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
-
-
 
     file_name = request.form.get('fname')
 

@@ -111,8 +111,12 @@
           $(function () {
 
 
+            var showExample = function(f) {
+              $("#output").html("<p>Click here to play a sample</p><audio id='player' controls><source src='binauralized.wav' type='audio/wav'></audio>")
+            }
+
             var parseAndSave = function (f) {
-              $("#output").html("<p align='center' style='color:grey;'>(processing...)</p>")
+              $("#output").html("<p align='center' style='color:grey;'>(processing...)</p><p>Click here to play a sample</p><audio id='player' controls><source src='binauralized.wav' type='audio/wav'></audio>")
               console.log("got file ", f)
               var xhr = new XMLHttpRequest();
               xhr.addEventListener('load', handle_response)
@@ -126,11 +130,14 @@
             };
 
             $("#mid").bind("change", function (event) {
+              showExample(event.target.files[0])
               parseAndSave(event.target.files[0]);
             });
 
             $("#textarea").bind("input change", function () {
+              showExample(event.target.files[0])
               parseAndSave($("#textarea").val());
+              
             });
 
             var dragging = function (evt) {
@@ -190,10 +197,14 @@
                   </audio>
         <br>
 		<br>
-			<p>Click here to play a sample</p>
+			<!-- <p>Click here to play a sample</p>
 				<audio id='player' controls>
 					<source src="binauralized.wav" type="audio/wav">
-				</audio>
+				</audio> -->
         </div>
       </div>
-        <div id="output" style="margin: 10px;"></div>
+        <div id="output" style="margin: 10px;">
+          <audio id='player' controls>
+            <source src={{filename}}>
+          </audio>
+        </div>
