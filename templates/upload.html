@@ -81,19 +81,22 @@
                           </div><!-- /.navbar-collapse -->
                         </div><!-- /.container-fluid -->
                       </nav>
-      <label for="goals">Binaural Beats to help with:</label>
-      <form class="dropdown" method="POST">
-      <select name="goals">
-<option value="">
-  <!-- <script type="text/javascript" src="js/theStoredValue.js"></script> -->
-</option>        
-        <option value="delta">Sleep</option>
-        <option value="theta">Meditation</option>
-        <option value="alpha">Stress</option>
-        <option value="beta">Focus</option>
-        <option value="gamma">Memory</option>
-      </select>
+      <div class='topdropdown' style="display:grid; justify-items: center;">
+      <label for="goalsel">Binaural Beats to help with:</label>
+      <form name="goals" class="dropdown" method="POST" action="{{ url_for('save_audio') }}">
+        <select name="goals">
+          <!-- <option value=""> -->
+          <!-- <script type="text/javascript" src="js/theStoredValue.js"></script> -->
+          <!-- </option>         -->
+          <option value="delta">Sleep</option>
+          <option value="theta">Meditation</option>
+          <option value="alpha">Stress</option>
+          <option value="beta">Focus</option>
+          <option value="gamma">Memory</option>
+        </select>
+        <input type="submit" value="Submit" />
       </form>
+      </div>  
     </div>
           <!-- external libs from cdnjs -->
         <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
@@ -208,7 +211,7 @@
 				</audio> -->
         </div>
       </div>
-        <div id="output" style="margin: 10px;">
+        <div id="output" style="margin: 10px; display:grid; justify-items: center;">
           Example of binauralized music:
           <audio id='player' style="margin: 0 auto; display: block;" controls>
             <source src="static/bin_sneakyedit.wav">

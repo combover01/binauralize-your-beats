@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <body>
-        <h1>Your Binauralized File</h1>
-        <audio id='player' controls>
-            <source src={{ url_for('static', filename=file_path) }}>
-          </audio>
+        <div class="outputclass" style="margin: auto; display: inline-grid">
+            <h1>Your Binauralized File</h1>
+            <audio id='player' controls>
+                <source src={{ url_for('static', filename=file_path) }}>
+            </audio>
+            <a href="{{ url_for('audio_upload') }}"><button>Click me to binauralize another song</button></a>
+        </div>
     </body>
 </html>

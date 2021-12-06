@@ -23,7 +23,6 @@ import scipy.signal
 from scipy.io.wavfile import write
 import os.path
 import time
-import requests
 
 
 # from spleeter.separator import Separator
@@ -131,13 +130,41 @@ def serve_static(filename):
 # @app.route('/play_audio')
 # def play_audio():
 #     return render_template('play_audio.html')
+@app.route('/submit_form', methods = ['POST','GET'])
+def submitForm():
+    selectedFreq = request.form.get('goals')
+    print('selected a freq: ',selectedFreq)
+    return selectedFreq
 
-@app.route('/save_audio',methods=['GET','POST'])
+@app.route('/save_audio', methods=['POST','GET'])
 def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
 
     file_name = request.form.get('fname')
-    band = request.form.get('goals')
+
+    if request.method == 'POST':
+        band = request.form.get('goals')
+        print("band: ", band)
+
+    # band = request.form.get('goals')
+
+    print("band: ", band)
+# do a lil switch statement here
+    freqShift = 0
+    if band == "delta":
+        freqShift = 2
+    elif band == "theta":
+        freqShift = 6
+    elif band =="alpha":
+        freqShift=10
+    elif band=="beta":
+        freqShift=20
+    elif band=="gamma":
+        freqShift=30
+    else:
+        freqShift = 2
+
+
     if file_name is None:
         # this saves audio files into the "audio_uploads" folder. we will need to delete these in a cache on the webhosting possibly but for now it works fine
         audio_file = request.files['audio']
@@ -170,7 +197,7 @@ def save_audio():
 
         binauralized_file_id = "bin_"+file_id
         print("binauralized file id: ", binauralized_file_id)
-        stereo,sr=binauralizer(band,high,bass_path,orig_file_path)
+        stereo,sr=binauralizer(freqShift,high,bass_path,orig_file_path)
         binauralized_file_path = 'static/' + binauralized_file_id
 
         sf.write(binauralized_file_path,stereo,sr)
@@ -203,6 +230,7 @@ def nextpow2(x):
     return int(np.ceil(np.log2(np.abs(x))))            #### for zero padding inside freq_shift function
 
 def freq_shift(x, f_shift, dt):                        #### frequency shifting function
+    print("f_shift: ", f_shift)
     N_orig = len(x)
     N_padded = 2**nextpow2(N_orig)                     #### zero padding
     t = np.arange(0, N_padded)
