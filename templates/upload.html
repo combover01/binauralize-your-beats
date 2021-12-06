@@ -16,13 +16,8 @@
 			background-size: cover;
 				}
     .output {
-      margin: auto;
-      padding: 10px;
-      width: 50%;
+      display: block;
       
-    }
-    .instruction{
-      font-size: 100px;
     }
  /* .loader {
     display: inline-block;
@@ -192,14 +187,14 @@
           <div></div>
           <div></div>
         </div>
-          <p id="instruction" style="text-align:center" style="line-height: 1.5">
+          <p style="text-align:center" style="line-height: 1.5">
             Drop an audio file on this page or
             <label id="filechooser" style="text-decoration-line: underline;">click here to choose one<input id="mid" type="file" style="display:none" /></label>
             <br /><br />
             <!-- <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea> -->
             <br />
           </p>
-                  <audio id='player' controls>
+                  <audio id='player' style="margin: 0 auto; display: block;" controls>
                     <source src={{filename}}>
                   </audio>
         <br>
@@ -210,8 +205,8 @@
 				</audio> -->
         </div>
       </div>
-        <div id="output" style="margin: auto;" style="padding: 10px;" style="object-position: center;">
-          <audio id='player' controls>
+        <div id="output" >
+          <audio id='player' style="margin: 0 auto; display: block;" controls>
             <source src={{filename}}>
           </audio>
         </div>
