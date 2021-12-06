@@ -15,14 +15,14 @@
 			background-repeat: repeat-y;
 			background-size: cover;
 				}
- .loader {
+ /* .loader {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
   }
  .loader div {
-    display: inline-block;
+    display: none;
     position: absolute;
     left: 8px;
     width: 16px;
@@ -50,7 +50,7 @@
     top: 24px;
     height: 32px;
   }
-}
+} */
 
   </style>
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -68,16 +68,11 @@
                               <span class="icon-bar"></span>
                               <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="landing.html">Binauralize Your Beats</a>
+                            <a class="navbar-brand" href="/">Binauralize Your Beats</a>
                           </div>
-                        <div class="loader">
-                          <div></div>
-                          <div></div>
-                          <div></div>
-                        </div>
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                              <li><a href="edu.html">Learn More</a></li>
+                              <li><a href="/edu">Learn More</a></li>
                             </ul>
                           </div><!-- /.navbar-collapse -->
                         </div><!-- /.container-fluid -->
@@ -100,10 +95,7 @@
         <script type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-        
-        
-        
-        
+
         <script type=text/javascript>
                     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
                 </script>
@@ -116,7 +108,8 @@
             }
 
             var parseAndSave = function (f) {
-              $("#output").html("<p align='center' style='color:grey;'>(processing...)</p><p>Click here to play a sample</p><audio id='player' controls><source src='binauralized.wav' type='audio/wav'></audio>")
+              $("#output").html("<p align='center' style='color:black;'>(processing...)</p>")
+              // loader.showLoading();
               console.log("got file ", f)
               var xhr = new XMLHttpRequest();
               xhr.addEventListener('load', handle_response)
@@ -171,20 +164,25 @@
           function handle_response(e) {
             console.log(this.responseText);
             document.getElementById("output").innerHTML = this.responseText;
+            loader.hideLoading();
           }
         </script>
-        <script>
+        <!-- <script>
           function showLoading() {
             document.getElementById("loader").style = "visibility: visible";
           }
           function hideLoading() {
             document.getElementById("loader").style = "visibility: hidden";
           }
-        </script>
+        </script> -->
         <div class="container">
           <div class="col-lg-9"></div>
-          <h2>Audio Upload</h2>
-        
+          <h2 style="text-align:center">Audio Upload</h2>
+        <div class="loader">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
           <p style="text-align:center" style="line-height: 1.5">
             Drop an audio file on this page or
             <label id="filechooser">click here to choose one<input id="mid" type="file" style="display:none" /></label>
