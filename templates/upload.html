@@ -70,11 +70,6 @@
                             </button>
                             <a class="navbar-brand" href="/">Binauralize Your Beats</a>
                           </div>
-                        <div class="loader">
-                          <div></div>
-                          <div></div>
-                          <div></div>
-                        </div>
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                               <li><a href="/edu">Learn More</a></li>
@@ -100,13 +95,15 @@
         <script type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-        
-        
-        
-        
+
         <script type=text/javascript>
                     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
                 </script>
+        <script type=text/javascript>
+        window.onload = function() {
+          $("loader").hide();
+        };
+          </script>
         <script type="text/javascript">
           $(function () {
 
@@ -178,8 +175,12 @@
         </script>
         <div class="container">
           <div class="col-lg-9"></div>
-          <h2>Audio Upload</h2>
-        
+          <h2 style="text-align:center">Audio Upload</h2>
+        <div class="loader">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
           <p style="text-align:center" style="line-height: 1.5">
             Drop an audio file on this page or
             <label id="filechooser">click here to choose one<input id="mid" type="file" style="display:none" /></label>
