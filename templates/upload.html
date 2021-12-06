@@ -15,6 +15,10 @@
 			background-repeat: repeat-y;
 			background-size: cover;
 				}
+    .output {
+      display: block;
+      
+    }
  /* .loader {
     display: inline-block;
     position: relative;
@@ -78,16 +82,18 @@
                         </div><!-- /.container-fluid -->
                       </nav>
       <label for="goals">Binaural Beats to help with:</label>
-      <select id="goals">
+      <form class="dropdown" method="POST">
+      <select name="goals">
 <option value="">
-  <script type="text/javascript" src="templates/js/theStoredValue.js"></script>
+  <!-- <script type="text/javascript" src="js/theStoredValue.js"></script> -->
 </option>        
-        <option value="sleep">Sleep</option>
-        <option value="med">Meditation</option>
-        <option value="stress">Stress</option>
-        <option value="focus">Focus</option>
-        <option value="mem">Memory</option>
+        <option value="delta">Sleep</option>
+        <option value="theta">Meditation</option>
+        <option value="alpha">Stress</option>
+        <option value="beta">Focus</option>
+        <option value="gamma">Memory</option>
       </select>
+      </form>
     </div>
           <!-- external libs from cdnjs -->
         <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
@@ -167,7 +173,7 @@
 
             console.log(this.responseText);
             document.getElementById("output").innerHTML = this.responseText;
-            loader.hideLoading();
+            // loader.hideLoading();
           }
         </script>
         <!-- <script>
@@ -188,9 +194,9 @@
         </div>
           <p style="text-align:center" style="line-height: 1.5">
             Drop an audio file on this page or
-            <label id="filechooser">click here to choose one<input id="mid" type="file" style="display:none" /></label>
+            <label id="filechooser" style="text-decoration-line: underline;">click here to choose one<input id="mid" type="file" style="display:none" /></label>
             <br /><br />
-            <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea>
+            <!-- <textarea placeholder="or type or paste CSV text here" style="width: 300px;" id="textarea"></textarea> -->
             <br />
           </p>
       
@@ -204,7 +210,7 @@
       </div>
         <div id="output" style="margin: 10px;">
           Example of binauralized music:
-          <audio id='player' controls>
+          <audio id='player' style="margin: 0 auto; display: block;" controls>
             <source src="static/bin_sneakyedit.wav">
           </audio>
           The original (un-binauralized) music:

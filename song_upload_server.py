@@ -23,6 +23,7 @@ import scipy.signal
 from scipy.io.wavfile import write
 import os.path
 import time
+import requests
 
 
 # from spleeter.separator import Separator
@@ -93,9 +94,10 @@ def returnAudioFile(filename):
          as_attachment=True, 
          attachment_filename="test.wav")
 
-@app.route('/audio_upload')
+@app.route('/audio_upload', methods=['GET', 'POST'])
 def audio_upload():
     return render_template('upload.html')
+
 
 @app.route("/")
 def landing_load():
@@ -107,8 +109,6 @@ def edu():
     return render_template("edu.html")
 
 
-# when tf is this called?
-# maybe when it is audio, do returnAudioFile
 @app.route('/<path:filename>')
 def serve_static(filename):
     print("static serving filename:", filename)
@@ -137,12 +137,10 @@ def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
 
     file_name = request.form.get('fname')
-
+    band = request.form.get('goals')
     if file_name is None:
         # this saves audio files into the "audio_uploads" folder. we will need to delete these in a cache on the webhosting possibly but for now it works fine
         audio_file = request.files['audio']
-        # output_audio_file = request.files['outputaudio']
-        # print('outputaudio: ',output_audio_file)
         print('audiofile: ', audio_file.filename)
         print('newaudiofile: ', audio_file.filename.replace(" ","_").replace(".","_",audio_file.filename.count(".")-1))
 
@@ -172,13 +170,10 @@ def save_audio():
 
         binauralized_file_id = "bin_"+file_id
         print("binauralized file id: ", binauralized_file_id)
-        stereo,sr=binauralizer(alpha,high,bass_path,orig_file_path)
+        stereo,sr=binauralizer(band,high,bass_path,orig_file_path)
         binauralized_file_path = 'static/' + binauralized_file_id
 
         sf.write(binauralized_file_path,stereo,sr)
-
-
-
 
         time.sleep(10)
         # renders template with file id and not file path because they are all in static and otherwise it gets messy
