@@ -136,34 +136,74 @@ def submitForm():
     print('selected a freq: ',selectedFreq)
     return selectedFreq
 
+# def getGoals():
+#     return("delta", "theta","alpha","beta","gamma")
+# def template(text=""):
+#     templateDate = {
+#         'text': text,
+#         'goals': getGoals(),
+#         'selected_goal' : -1
+#     }
+#     return templateDate
+
+x = None
+@app.route('/goal_process', methods=['POST','GET'])
+def goal_process(tf=True):
+    global x
+    band = 0
+    print('i goal process ruan')
+    if tf: 
+        if request.method == 'POST':
+            goal = (request.form['goals'])
+            band=goal
+            # band = request.form.get('goals')
+            print("band: ", band)
+            x = band
+            return x
+    else:
+        return x
+    
+    
+
+    # templateData = template(text="")
+    # templateData['selected_goal'] = goal
+    # band = request.form.get('goals')
+
+    # print("band: ", band)
+    # return band
+
 @app.route('/save_audio', methods=['POST','GET'])
 def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
 
     file_name = request.form.get('fname')
-
-    if request.method == 'POST':
-        band = request.form.get('goals')
-        print("band: ", band)
-
-    # band = request.form.get('goals')
+    band = goal_process(False)
+    # if request.method == 'POST':
+    #     goal = (request.form['goals'])
+    #     band=goal
+    #     # band = request.form.get('goals')
+    #     print("band: ", band)
+    # templateData = template(text="")
+    # templateData['selected_goal'] = goal
+    # # band = request.form.get('goals')
 
     print("band: ", band)
 # do a lil switch statement here
     freqShift = 0
-    if band == "delta":
+    if band == "Sleep":
         freqShift = 2
-    elif band == "theta":
+    elif band == "Meditation":
         freqShift = 6
-    elif band =="alpha":
+    elif band =="Stress":
         freqShift=10
-    elif band=="beta":
+    elif band=="Focus":
         freqShift=20
-    elif band=="gamma":
+    elif band=="Memory":
         freqShift=30
     else:
         freqShift = 2
 
+    print(freqShift)
 
     if file_name is None:
         # this saves audio files into the "audio_uploads" folder. we will need to delete these in a cache on the webhosting possibly but for now it works fine

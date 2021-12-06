@@ -83,8 +83,16 @@
                       </nav>
       <div class='topdropdown' style="display:grid; justify-items: center;">
       <label for="goalsel">Binaural Beats to help with:</label>
-      <form name="goals" class="dropdown" method="POST" action="{{ url_for('save_audio') }}">
+      <form class="dropdown" method="POST" action="{{ url_for('goal_process') }}">
         <select name="goals">
+          {% for goal in goals %}
+            {% if selected_goal == goal %}
+              <option value="{{ goal }}" selected='selected'>{{ goal }}</option>
+            {% else %}
+              <option value="{{ goal }}">{{ goal }}</option>
+            {% endif %}
+          {% endfor %}
+
           <!-- <option value=""> -->
           <!-- <script type="text/javascript" src="js/theStoredValue.js"></script> -->
           <!-- </option>         -->
@@ -94,7 +102,7 @@
           <option value="beta">Focus</option>
           <option value="gamma">Memory</option>
         </select>
-        <input type="submit" value="Submit" />
+        <!-- <input type="submit" value="Submit" /> -->
       </form>
       </div>  
     </div>
@@ -115,6 +123,27 @@
             var showExample = function(f) {
               $("#output").html("<p>Click here to play a sample</p><audio id='player' controls><source src='binauralized.wav' type='audio/wav'></audio>")
             }
+            var parseDropdown = function (d) {
+              console.log("got dropdown selection ", d)
+              var xhr = new XMLHttpRequest();
+              xhr.addEventListener('load', handle_response)
+              xhr.open('POST', '/goal_process', true);
+              req = new FormData()
+              req.set('goals', d,)
+              console.log(req)
+              for (key of req.keys()) {
+                console.log("val", key)
+              }
+              xhr.send(req);
+            };
+            // $('select[name="goals"]').bind("change", function(){
+            $(".dropdown").bind("change", function(event){
+              $('select option:selected').each(function() {
+                console.log($(this).text())
+                parseDropdown($(this).text());
+              })
+            });
+            
 
             var parseAndSave = function (f) {
               $("#output").html("<p align='center' style='color:black;'>(processing...)</p>")
@@ -175,8 +204,10 @@
           function handle_response(e) {
 
             console.log(this.responseText);
-            document.getElementById("output").innerHTML = this.responseText;
+            if (this.responseText.includes('audio')){
+              document.getElementById("output").innerHTML = this.responseText;
             // loader.hideLoading();
+            }
           }
         </script>
         <!-- <script>
