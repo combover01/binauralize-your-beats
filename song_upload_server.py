@@ -94,8 +94,6 @@ def returnAudioFile(filePath):
 
 @app.route('/audio_upload', methods=['GET', 'POST'])
 def audio_upload():
-    if request.method == 'POST':
-      band = request.form.get('goals')
     return render_template('upload.html')
 
 
@@ -129,7 +127,7 @@ def save_audio():
     print("\nra",request.form,request.data,request.files,app.config)
 
     file_name = request.form.get('fname')
-
+    band = request.form.get('goals')
     if file_name is None:
         # this saves audio files into the "audio_uploads" folder. we will need to delete these in a cache on the webhosting possibly but for now it works fine
         audio_file = request.files['audio']
@@ -150,7 +148,7 @@ def save_audio():
         name_of_file=file_id.split(".")[0]
         bass_path = 'separated/mdx_q/'+ name_of_file + '/bass.wav'
 
-        stereo,sr=binauralizer(alpha,high,bass_path,orig_file_path)
+        stereo,sr=binauralizer(band,high,bass_path,orig_file_path)
         binauralized_file_path = 'static/binauralized/' + file_id
         write(binauralized_file_path,sr,stereo)
         print(binauralized_file_path)
