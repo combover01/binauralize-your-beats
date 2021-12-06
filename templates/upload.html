@@ -15,14 +15,14 @@
 			background-repeat: repeat-y;
 			background-size: cover;
 				}
- .loader {
+ /* .loader {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
   }
  .loader div {
-    display: inline-block;
+    display: none;
     position: absolute;
     left: 8px;
     width: 16px;
@@ -50,7 +50,7 @@
     top: 24px;
     height: 32px;
   }
-}
+} */
 
   </style>
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -99,18 +99,13 @@
         <script type=text/javascript>
                     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
                 </script>
-        <script type=text/javascript>
-        window.onload = function() {
-          $("loader").hide();
-        };
-          </script>
         <script type="text/javascript">
           $(function () {
 
 
             var parseAndSave = function (f) {
-              $("#output").html("<p align='center' style='color:grey;'>(processing...)</p>")
-              loader.showLoading();
+              $("#output").html("<p align='center' style='color:black;'>(processing...)</p>")
+              // loader.showLoading();
               console.log("got file ", f)
               var xhr = new XMLHttpRequest();
               xhr.addEventListener('load', handle_response)
@@ -165,14 +160,14 @@
             loader.hideLoading();
           }
         </script>
-        <script>
+        <!-- <script>
           function showLoading() {
             document.getElementById("loader").style = "visibility: visible";
           }
           function hideLoading() {
             document.getElementById("loader").style = "visibility: hidden";
           }
-        </script>
+        </script> -->
         <div class="container">
           <div class="col-lg-9"></div>
           <h2 style="text-align:center">Audio Upload</h2>
